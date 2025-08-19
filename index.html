@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Prep Hub - Complete Interview Preparation</title>
+    
+    <!-- Google Fonts for better typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e'
+                        },
+                        neutral: {
+                            50: '#fafafa',
+                            100: '#f5f5f5',
+                            200: '#e5e5e5',
+                            300: '#d4d4d4',
+                            400: '#a3a3a3',
+                            500: '#737373',
+                            600: '#525252',
+                            700: '#404040',
+                            800: '#262626',
+                            900: '#171717'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Marked.js to render Markdown from API -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <!-- highlight.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Light theme for code blocks (default) -->
+    <link id="hljs-light-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <!-- Dark theme for code blocks (initially disabled) -->
+    <link id="hljs-dark-theme" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled>
+    
+    <!-- Lucide Icons for modern icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 font-sans antialiased min-h-screen transition-colors duration-300" style="font-family: 'Inter', system-ui, sans-serif;">
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:block w-80 h-full bg-neutral-50 dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 overflow-y-auto transition-colors duration-300">
+            <div class="p-6 border-b border-neutral-200 dark:border-neutral-700">
+                <div id="home-icon" class="flex items-center gap-3 cursor-pointer group transition-all duration-200">
+                    <div class="w-10 h-10 bg-primary-500 hover:bg-primary-600 rounded-xl flex items-center justify-center transition-colors duration-200">
+                        <i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">Interview Prep Hub</h1>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Complete Interview Guide</p>
+                    </div>
+                </div>
+            </div>
+            <nav id="roadmap-nav" class="p-4">
+                <!-- Topics will be dynamically inserted here by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+        
+        <!-- Mobile Sidebar -->
+        <aside id="mobile-sidebar" class="fixed left-0 top-0 w-80 h-full bg-neutral-50 dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 overflow-y-auto transition-transform duration-300 transform -translate-x-full z-50 lg:hidden">
+            <div class="p-6 border-b border-neutral-200 dark:border-neutral-700">
+                <div class="flex items-center justify-between">
+                    <div id="mobile-home-icon" class="flex items-center gap-3 cursor-pointer group transition-all duration-200">
+                        <div class="w-10 h-10 bg-primary-500 hover:bg-primary-600 rounded-xl flex items-center justify-center transition-colors duration-200">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">Interview Prep Hub</h1>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400">Complete Interview Guide</p>
+                        </div>
+                    </div>
+                    <button id="mobile-menu-close" class="w-8 h-8 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 flex items-center justify-center transition-colors">
+                        <i data-lucide="x" class="w-5 h-5 text-neutral-600 dark:text-neutral-400"></i>
+                    </button>
+                </div>
+            </div>
+            <nav id="mobile-roadmap-nav" class="p-4">
+                <!-- Topics will be dynamically inserted here by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 h-full flex flex-col">
+            <header class="px-4 lg:px-8 py-4 lg:py-6 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700 transition-colors duration-300">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <!-- Mobile Menu Button -->
+                        <button id="mobile-menu-button" class="lg:hidden w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 flex items-center justify-center">
+                            <i data-lucide="menu" class="w-4 h-4 text-neutral-600 dark:text-neutral-400"></i>
+                        </button>
+                        <div>
+                            <h2 id="current-topic-title" class="text-xl lg:text-2xl font-semibold text-neutral-900 dark:text-neutral-100">Welcome to Interview Prep Hub</h2>
+                            <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">Your complete guide for technical interviews</p>
+                        </div>
+                    </div>
+                    <button id="theme-toggle" class="w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 flex items-center justify-center">
+                        <i data-lucide="sun" class="w-4 h-4 text-neutral-600 dark:hidden"></i>
+                        <i data-lucide="moon" class="w-4 h-4 text-neutral-400 hidden dark:block"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="flex-1 p-4 lg:p-8 overflow-y-auto bg-neutral-50 dark:bg-neutral-800 transition-colors duration-300">
+                <!-- Content Container with max width and centering -->
+                <div class="max-w-4xl mx-auto">
+                    <div id="content-display">
+                        <!-- Welcome Message -->
+                        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+                            <div class="text-center mb-12 lg:mb-16">
+                                <div class="w-16 h-16 lg:w-20 lg:h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-6 lg:mb-8">
+                                    <i data-lucide="graduation-cap" class="w-8 h-8 lg:w-10 lg:h-10 text-white"></i>
+                                </div>
+                                <h2 class="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">Complete Interview Preparation</h2>
+                                <p class="text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+                                    Master technical interviews with our comprehensive guide covering algorithms, system design, and behavioral questions.
+                                </p>
+                            </div>
+                            
+                            <!-- Main Categories -->
+                            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-16">
+                                <div class="bg-white dark:bg-neutral-900 p-6 lg:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
+                                        <i data-lucide="brain-circuit" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Algorithms</h3>
+                                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Master data structures, algorithms, and coding patterns with detailed explanations and implementations.</p>
+                                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Graph Algorithms & Trees</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Dynamic Programming</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Sorting & Searching</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Data Structures</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-neutral-900 p-6 lg:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
+                                        <i data-lucide="server" class="w-6 h-6 text-purple-600 dark:text-purple-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">System Design</h3>
+                                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Learn to design scalable systems with architecture patterns and real-world examples.</p>
+                                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Scalability & Load Balancing</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Database Design</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Microservices Architecture</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Popular System Designs</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-white dark:bg-neutral-900 p-6 lg:p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
+                                        <i data-lucide="users" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
+                                    </div>
+                                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Behavioral</h3>
+                                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Excel in behavioral interviews with STAR method frameworks and question guides.</p>
+                                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Leadership & Management</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Problem Solving</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Communication Skills</li>
+                                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>STAR Method Framework</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Features -->
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                                <div class="bg-white dark:bg-neutral-900 p-4 lg:p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                        <i data-lucide="code-2" class="w-5 h-5 text-orange-600 dark:text-orange-400"></i>
+                                    </div>
+                                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Code Examples</h3>
+                                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Complete implementations</p>
+                                </div>
+                                <div class="bg-white dark:bg-neutral-900 p-4 lg:p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                        <i data-lucide="timer" class="w-5 h-5 text-red-600 dark:text-red-400"></i>
+                                    </div>
+                                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Complexity Analysis</h3>
+                                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Time & space analysis</p>
+                                </div>
+                                <div class="bg-white dark:bg-neutral-900 p-4 lg:p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                                    <div class="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                        <i data-lucide="lightbulb" class="w-5 h-5 text-cyan-600 dark:text-cyan-400"></i>
+                                    </div>
+                                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Interview Strategies</h3>
+                                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Expert tips & questions</p>
+                                </div>
+                                <div class="bg-white dark:bg-neutral-900 p-4 lg:p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                                    <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                        <i data-lucide="sparkles" class="w-5 h-5 text-indigo-600 dark:text-indigo-400"></i>
+                                    </div>
+                                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">AI-Powered</h3>
+                                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Generated content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Loading Spinner -->
+                <div id="loader" class="hidden fixed inset-0 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm flex items-center justify-center z-50">
+                    <div class="bg-white dark:bg-neutral-800 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 flex flex-col items-center">
+                        <div class="loading-spinner mb-4"></div>
+                        <p class="text-neutral-600 dark:text-neutral-400 font-medium">Loading content...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Application JavaScript (non-module approach for compatibility) -->
+    <script src="js/data.js"></script>
+    <script src="js/cache.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
