@@ -66,6 +66,18 @@ html, body {
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+/* A4 Paper Background - simulate desk/surface only for content area */
+.content-area {
+    background-color: #f8f9fa; /* Light desk surface */
+    min-height: 100vh;
+    padding: 2rem 0;
+    position: relative;
+}
+
+.dark .content-area {
+    background-color: #0f172a; /* Dark desk surface */
+}
+
 /* Enhanced backdrop blur effects */
 .backdrop-blur-custom, .backdrop-blur-xl {
     backdrop-filter: blur(16px);
@@ -212,15 +224,58 @@ button:focus, a:focus {
     line-height: 1.7;
 }
 
-/* Enhanced Typography */
+/* Enhanced Typography with A4-inspired Paper Style */
 #content-display {
     font-size: 16px;
     line-height: 1.7;
     color: #374151;
+    
+    /* A4-inspired Paper Styling */
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.24),
+        0 8px 32px rgba(0, 0, 0, 0.04);
+    
+    /* Wider paper for better readability */
+    max-width: 1000px; /* Wider than A4 for better screen reading */
+    min-height: 600px; /* Reasonable minimum height */
+    margin: 0 auto;
+    padding: 3rem 4rem; /* Generous padding for readability */
+    
+    /* Paper texture and feel */
+    border: 1px solid #e5e7eb;
+    position: relative;
+    
+    /* Ensure it looks like paper on any background */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
+/* Mobile responsive paper */
+@media (max-width: 768px) {
+    #content-display {
+        max-width: calc(100vw - 2rem);
+        min-height: auto;
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        box-shadow: 
+            0 1px 3px rgba(0, 0, 0, 0.08),
+            0 1px 2px rgba(0, 0, 0, 0.16);
+        border-radius: 12px;
+    }
+}
+
+/* Dark mode A4 paper */
 .dark #content-display {
     color: #d1d5db;
+    background: #1f2937; /* Dark paper background */
+    border-color: #374151;
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.5),
+        0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* Heading Styles with Anchor Links */

@@ -107,12 +107,10 @@ function renderContent(contentDisplay, markdown) {
         // Try basic rendering first
         const basicContent = marked.parse(markdown);
         
-        // Wrap content in a nice container
+        // Render content directly with A4 paper styling applied to container
         contentDisplay.innerHTML = `
-            <div class="max-w-4xl mx-auto">
-                <div class="markdown-content prose prose-lg dark:prose-invert max-w-none">
-                    ${basicContent}
-                </div>
+            <div class="markdown-content prose prose-lg dark:prose-invert max-w-none">
+                ${basicContent}
             </div>
         `;
         
@@ -134,15 +132,13 @@ function renderContent(contentDisplay, markdown) {
     } catch (error) {
         console.error('Error rendering markdown content:', error);
         contentDisplay.innerHTML = `
-            <div class="max-w-4xl mx-auto">
-                <div class="p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl">
-                    <h3 class="font-bold text-yellow-800 dark:text-yellow-200 mb-2">Content Rendering Error</h3>
-                    <p class="text-yellow-700 dark:text-yellow-300">There was an error rendering the markdown content. Please try refreshing the page.</p>
-                    <details class="mt-4">
-                        <summary class="cursor-pointer text-sm">Error Details</summary>
-                        <pre class="mt-2 text-xs bg-yellow-100 dark:bg-yellow-900/40 p-2 rounded">${error.message}</pre>
-                    </details>
-                </div>
+            <div class="p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl">
+                <h3 class="font-bold text-yellow-800 dark:text-yellow-200 mb-2">Content Rendering Error</h3>
+                <p class="text-yellow-700 dark:text-yellow-300">There was an error rendering the markdown content. Please try refreshing the page.</p>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm">Error Details</summary>
+                    <pre class="mt-2 text-xs bg-yellow-100 dark:bg-yellow-900/40 p-2 rounded">${error.message}</pre>
+                </details>
             </div>
         `;
     }
@@ -190,16 +186,14 @@ function addCopyButtonsToCodeBlocks() {
 
 function renderError(contentDisplay, message) {
     contentDisplay.innerHTML = `
-        <div class="max-w-4xl mx-auto">
-            <div class="p-8 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl text-red-800 dark:text-red-200 backdrop-blur-sm shadow-lg">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 rounded-lg bg-red-100 dark:bg-red-900/50">
-                        <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600 dark:text-red-400"></i>
-                    </div>
-                    <h3 class="font-bold text-xl">Error</h3>
+        <div class="p-8 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl text-red-800 dark:text-red-200 backdrop-blur-sm shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="p-2 rounded-lg bg-red-100 dark:bg-red-900/50">
+                    <i data-lucide="alert-triangle" class="w-6 h-6 text-red-600 dark:text-red-400"></i>
                 </div>
-                <p class="text-lg">${message}</p>
+                <h3 class="font-bold text-xl">Error</h3>
             </div>
+            <p class="text-lg">${message}</p>
         </div>
     `;
     lucide.createIcons();

@@ -17,6 +17,8 @@ class AlgoPrep {
 
     async init() {
         try {
+            console.log('Initializing Interview Prep Hub...');
+            
             // Initialize theme
             initializeTheme();
             
@@ -29,11 +31,18 @@ class AlgoPrep {
                 createNavMenu(this.mobileNav);
             }
             
+            console.log('Navigation created, setting up event listeners...');
+            
             // Set up event listeners
             this.setupEventListeners();
             
-            // Initialize icons
+            // Initialize icons first
             lucide.createIcons();
+            
+            // Show home screen by default (after icons are loaded)
+            this.showHomeScreen();
+            
+            console.log('Interview Prep Hub initialized successfully!');
             
         } catch (error) {
             console.error("Failed to initialize application:", error);
@@ -122,6 +131,8 @@ class AlgoPrep {
     }
 
     showHomeScreen() {
+        console.log('showHomeScreen called');
+        
         // Reset active states
         document.querySelectorAll('.topic-link').forEach(link => {
             link.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-700', 'dark:text-primary-300');
@@ -132,98 +143,100 @@ class AlgoPrep {
         
         // Show the default home content
         this.contentDisplay.innerHTML = `
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-16">
-                    <div class="w-20 h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
-                        <i data-lucide="graduation-cap" class="w-10 h-10 text-white"></i>
+            <div class="text-center mb-12">
+                <div class="w-20 h-20 bg-primary-500 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                    <i data-lucide="graduation-cap" class="w-10 h-10 text-white"></i>
+                </div>
+                <h2 class="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">Complete Interview Preparation</h2>
+                <p class="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
+                    Master technical interviews with our comprehensive guide covering algorithms, system design, and behavioral questions.
+                </p>
+            </div>
+                
+            <!-- Main Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
+                        <i data-lucide="brain-circuit" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
                     </div>
-                    <h2 class="text-4xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">Complete Interview Preparation</h2>
-                    <p class="text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto">
-                        Master technical interviews with our comprehensive guide covering algorithms, system design, and behavioral questions.
-                    </p>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Algorithms</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Master data structures, algorithms, and coding patterns with detailed explanations and implementations.</p>
+                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Graph Algorithms & Trees</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Dynamic Programming</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Sorting & Searching</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Data Structures</li>
+                    </ul>
                 </div>
                 
-                <!-- Main Categories -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
-                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors">
-                            <i data-lucide="brain-circuit" class="w-6 h-6 text-blue-600 dark:text-blue-400"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Algorithms</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 mb-4">Master data structures, algorithms, and coding patterns with detailed explanations and implementations.</p>
-                        <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Graph Algorithms & Trees</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Dynamic Programming</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Sorting & Searching</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Data Structures</li>
-                        </ul>
+                <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
+                        <i data-lucide="server" class="w-6 h-6 text-purple-600 dark:text-purple-400"></i>
                     </div>
-                    
-                    <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
-                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors">
-                            <i data-lucide="server" class="w-6 h-6 text-purple-600 dark:text-purple-400"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">System Design</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 mb-4">Learn to design scalable systems with architecture patterns and real-world examples.</p>
-                        <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Scalability & Load Balancing</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Database Design</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Microservices Architecture</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Popular System Designs</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
-                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
-                            <i data-lucide="users" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Behavioral</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400 mb-4">Excel in behavioral interviews with STAR method frameworks and question guides.</p>
-                        <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Leadership & Management</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Problem Solving</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Communication Skills</li>
-                            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>STAR Method Framework</li>
-                        </ul>
-                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">System Design</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Learn to design scalable systems with architecture patterns and real-world examples.</p>
+                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Scalability & Load Balancing</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Database Design</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Microservices Architecture</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Popular System Designs</li>
+                    </ul>
                 </div>
                 
-                <!-- Features -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
-                        <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="code-2" class="w-5 h-5 text-orange-600 dark:text-orange-400"></i>
-                        </div>
-                        <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Code Examples</h3>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Complete implementations</p>
+                <div class="bg-white dark:bg-neutral-900 p-8 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-200 dark:group-hover:bg-green-800/50 transition-colors">
+                        <i data-lucide="users" class="w-6 h-6 text-green-600 dark:text-green-400"></i>
                     </div>
-                    <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
-                        <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="timer" class="w-5 h-5 text-red-600 dark:text-red-400"></i>
-                        </div>
-                        <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Complexity Analysis</h3>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Time & space analysis</p>
+                    <h3 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100 mb-3">Behavioral</h3>
+                    <p class="text-neutral-600 dark:text-neutral-400 mb-4">Excel in behavioral interviews with STAR method frameworks and question guides.</p>
+                    <ul class="text-sm text-neutral-500 dark:text-neutral-500 space-y-2">
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Leadership & Management</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Problem Solving</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>Communication Skills</li>
+                        <li class="flex items-center gap-2"><span class="w-1 h-1 bg-neutral-400 rounded-full"></span>STAR Method Framework</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="code-2" class="w-5 h-5 text-orange-600 dark:text-orange-400"></i>
                     </div>
-                    <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
-                        <div class="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="lightbulb" class="w-5 h-5 text-cyan-600 dark:text-cyan-400"></i>
-                        </div>
-                        <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Interview Strategies</h3>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Expert tips & questions</p>
+                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Code Examples</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Complete implementations</p>
+                </div>
+                <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="timer" class="w-5 h-5 text-red-600 dark:text-red-400"></i>
                     </div>
-                    <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
-                        <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="sparkles" class="w-5 h-5 text-indigo-600 dark:text-indigo-400"></i>
-                        </div>
-                        <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">AI-Powered</h3>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Generated content</p>
+                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Complexity Analysis</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Time & space analysis</p>
+                </div>
+                <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                    <div class="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lightbulb" class="w-5 h-5 text-cyan-600 dark:text-cyan-400"></i>
                     </div>
+                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">Interview Strategies</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Expert tips & questions</p>
+                </div>
+                <div class="bg-white dark:bg-neutral-900 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 text-center">
+                    <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-indigo-600 dark:text-indigo-400"></i>
+                    </div>
+                    <h3 class="font-medium text-neutral-900 dark:text-neutral-100 mb-2">AI-Powered</h3>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">Generated content</p>
                 </div>
             </div>
         `;
         
+        console.log('Home content set, regenerating icons...');
+        
         // Regenerate icons for the new content
         lucide.createIcons();
+        
+        console.log('Icons regenerated, showHomeScreen complete');
     }
 
     async handleTopicSelection(link) {
